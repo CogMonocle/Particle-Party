@@ -1,7 +1,7 @@
 import org.lwjgl.opengl.GL11;
 
 
-public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, Sidebar.SidebarItem
+public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, SidebarItem
 {
 	public static final double GRAVITY = 0.0004;
 	public static final double ANGULAR_VELOCITY = 0.01;
@@ -14,13 +14,14 @@ public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, Sidebar.
 	public static double SIDEBAR_SLIDER_WIDTH = 10;
 	public static double amplitude = 5;
 	public static double period = 50;
+	public static int sideBarFrameId;
 	public static int sideBarId;
 	
 	@Override
 	public double[] getPos(double initX, double initY, double initA, long age, ExtraProperties p)
 	{
-		double resultX = initX + amplitude * Math.sin(age / period);
-		double resultY = initY - (GRAVITY * age * age / 2);
+		double resultX = initX + (amplitude * Math.sin(age / period));
+		double resultY = initY - ((GRAVITY * age * age) / 2);
 		double resultA = initA + (ANGULAR_VELOCITY * age);
 		return new double[]{resultX, resultY, resultA};
 	}
@@ -28,8 +29,9 @@ public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, Sidebar.
 	static
 	{
 		PosRuleSpinWiggleRise p = new PosRuleSpinWiggleRise();
-		Sidebar.addSidebarItem(new ElementText());
-		sideBarId = Sidebar.addSidebarItem(p);
+		sideBarFrameId = Sidebar.addFrame("SpinWiggleFallMenu");
+		Sidebar.addSidebarItem(new ElementText(), sideBarFrameId);
+		sideBarId = Sidebar.addSidebarItem(p, sideBarFrameId);
 	}
 	
 	@Override
@@ -57,9 +59,9 @@ public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, Sidebar.
 		GL11.glVertex2d(xPos, yPos + getHeight());
 		
 		// Amp slider bar
-		double topY = yPos + getHeight()  - Sidebar.VERTICAL_SPACING;
+		double topY = (yPos + getHeight())  - Sidebar.VERTICAL_SPACING;
 		double height = (getHeight() - (3 * Sidebar.VERTICAL_SPACING)) / 2;
-		double width = getWidth() - 2 * Sidebar.HORIZONTAL_SPACING;
+		double width = getWidth() - (2 * Sidebar.HORIZONTAL_SPACING);
 		GL11.glColor3f(0.8f, 0.8f, 0.8f);
 		GL11.glVertex2d(xPos + Sidebar.HORIZONTAL_SPACING, topY - height);
 		GL11.glVertex2d(xPos + Sidebar.HORIZONTAL_SPACING + width, topY - height);
@@ -98,18 +100,18 @@ public class PosRuleSpinWiggleFall implements RendererParticle.PosRule, Sidebar.
 	@Override
 	public void handleClick(int x, int y)
 	{
-		if(x >= 2 * Sidebar.HORIZONTAL_SPACING && x <= (getWidth()))
+		if((x >= (2 * Sidebar.HORIZONTAL_SPACING)) && (x <= (getWidth())))
 		{
 			double topY = getHeight()  - Sidebar.VERTICAL_SPACING;
 			double height = (getHeight() - (3 * Sidebar.VERTICAL_SPACING)) / 2;
-			if(y < (topY) && y > topY - height)
+			if((y < (topY)) && (y > (topY - height)))
 			{
-				double pos = 1 - ((x - 2 * Sidebar.HORIZONTAL_SPACING) / (getWidth() - 2 * Sidebar.HORIZONTAL_SPACING));
+				double pos = 1 - ((x - (2 * Sidebar.HORIZONTAL_SPACING)) / (getWidth() - (2 * Sidebar.HORIZONTAL_SPACING)));
 				amplitude = MIN_AMPLITUDE + (AMP_RANGE * pos);
 			}
-			if(y < (topY - (height + Sidebar.VERTICAL_SPACING)) && y > topY - (2 * height + Sidebar.VERTICAL_SPACING))
+			if((y < (topY - (height + Sidebar.VERTICAL_SPACING))) && (y > (topY - ((2 * height) + Sidebar.VERTICAL_SPACING))))
 			{
-				double pos = 1 - ((x - 2 * Sidebar.HORIZONTAL_SPACING) / (getWidth() - 2 * Sidebar.HORIZONTAL_SPACING));
+				double pos = 1 - ((x - (2 * Sidebar.HORIZONTAL_SPACING)) / (getWidth() - (2 * Sidebar.HORIZONTAL_SPACING)));
 				period = MIN_PERIOD + (PER_RANGE * pos);
 			}
 		}

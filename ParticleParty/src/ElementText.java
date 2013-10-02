@@ -1,7 +1,7 @@
 import org.lwjgl.opengl.GL11;
 
 
-public class ElementText implements Sidebar.SidebarItem
+public class ElementText implements SidebarItem
 {
 	@Override
 	public void update(long delta)

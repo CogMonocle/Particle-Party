@@ -1,6 +1,11 @@
 import java.util.Random;
 
 
+/**
+ * @author Justin
+ *
+ * Color Picker for various bright colors
+ */
 public class ColorPickerBrights implements RendererParticle.ColorPicker
 {
 

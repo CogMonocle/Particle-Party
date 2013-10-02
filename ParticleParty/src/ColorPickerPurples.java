@@ -1,6 +1,11 @@
 import java.util.Random;
 
 
+/**
+ * @author Justin
+ *
+ * Color Picker for various purples
+ */
 public class ColorPickerPurples implements RendererParticle.ColorPicker
 {
 

@@ -1,7 +1,7 @@
 import org.lwjgl.opengl.GL11;
 
 
-public class SidebarItemSelectBox implements Sidebar.SidebarItem
+public class SidebarItemSelectBox implements SidebarItem
 {
 	protected String[] opts_;
 	protected boolean[] selections_;

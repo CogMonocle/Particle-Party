@@ -1,7 +1,7 @@
 import org.lwjgl.opengl.GL11;
 
 
-public class SidebarItemTitle implements Sidebar.SidebarItem
+public class SidebarItemTitle implements SidebarItem
 {
 	private String title;
 	

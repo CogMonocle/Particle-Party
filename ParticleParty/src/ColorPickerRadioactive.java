@@ -1,6 +1,11 @@
 import java.util.Random;
 
 
+/**
+ * @author Justin Niosi
+ * 
+ * Light Green Color Picker
+ */
 public class ColorPickerRadioactive  implements RendererParticle.ColorPicker
 {
 

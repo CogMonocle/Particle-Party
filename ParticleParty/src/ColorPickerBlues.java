@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/**
+ * @author Justin Niosi
+ *
+ * <br>
+ * Color Picker of various blues
+ */
 public class ColorPickerBlues implements RendererParticle.ColorPicker
 {
 

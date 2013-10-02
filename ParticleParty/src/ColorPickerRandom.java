@@ -1,6 +1,11 @@
 import java.util.Random;
 
 
+/**
+ * @author Justin Niosi
+ *
+ * Color Picker for random colors
+ */
 public class ColorPickerRandom implements RendererParticle.ColorPicker
 {
 	Random r = new Random();

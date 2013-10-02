@@ -27,6 +27,8 @@ public class ParticleParty
 	
 	private RendererParticle particles;
 	private RendererConnected burstParticles;
+	
+	private int frameNumber;
 	private SidebarItemSelectBox selGen;
 	private SidebarItemSelectBox selColPicker;
 	private SidebarItemSelectBox selCol;
@@ -61,12 +63,13 @@ public class ParticleParty
 		// init managers
 		particles = new RendererOctogonParticle();
 		burstParticles = new RendererConnected();
+		Sidebar.initialize(width, height);
 		initGens();
 		initColPicks();
 		initCols();
 		initSizs();
 		initPoss();
-		initSidebar();
+		buildSidebar();
 		
 		while (!closeRequested)
 		{
@@ -78,24 +81,25 @@ public class ParticleParty
 		Display.destroy();
 	}
 
-	private void initSidebar()
+	private void buildSidebar()
 	{
-		Sidebar.initialize(width, height);
-		Sidebar.addSidebarItem(new SidebarItemTitle("Generators"));
+		frameNumber = Sidebar.addFrame("Main");
+		Sidebar.addSidebarItem(new SidebarItemTitle("Generators"), frameNumber);
 		selGen = new SidebarItemSelectBox(genNames, DEFAULT_GEN);
-		Sidebar.addSidebarItem(selGen);
-		Sidebar.addSidebarItem(new SidebarItemTitle("Color Pickers"));
+		Sidebar.addSidebarItem(selGen, frameNumber);
+		Sidebar.addSidebarItem(new SidebarItemTitle("Color Pickers"), frameNumber);
 		selColPicker = new SidebarItemSelectBox(colPickerNames, true);
-		Sidebar.addSidebarItem(selColPicker);
-		Sidebar.addSidebarItem(new SidebarItemTitle("Color Rules"));
+		Sidebar.addSidebarItem(selColPicker, frameNumber);
+		Sidebar.addSidebarItem(new SidebarItemTitle("Color Rules"), frameNumber);
 		selCol = new SidebarItemSelectBox(colNames, true);
-		Sidebar.addSidebarItem(selCol);
-		Sidebar.addSidebarItem(new SidebarItemTitle("Size Rules"));
+		Sidebar.addSidebarItem(selCol, frameNumber);
+		Sidebar.addSidebarItem(new SidebarItemTitle("Size Rules"), frameNumber);
 		selSiz = new SidebarItemSelectBox(sizNames, true);
-		Sidebar.addSidebarItem(selSiz);
-		Sidebar.addSidebarItem(new SidebarItemTitle("Position Rules"));
+		Sidebar.addSidebarItem(selSiz, frameNumber);
+		Sidebar.addSidebarItem(new SidebarItemTitle("Position Rules"), frameNumber);
 		selPos = new SidebarItemSelectBox(posNames, true);
-		Sidebar.addSidebarItem(selPos);
+		Sidebar.addSidebarItem(selPos, frameNumber);
+		Sidebar.setFrame(frameNumber);
 	}
 
 	private void initPoss()
