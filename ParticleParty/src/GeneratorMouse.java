@@ -4,8 +4,9 @@ import java.util.Random;
 public class GeneratorMouse extends GeneratorParticle
 {
 	public static final double MILLISECONDS_PER_PARTICLE = 2;
+	public static final double SIZE = 8;
 	
-	private GeneratorParameters info;
+	private final GeneratorParameters info;
 	
 	private boolean[] cPickers;
 	private boolean[] cRules;
@@ -42,13 +43,25 @@ public class GeneratorMouse extends GeneratorParticle
 		while(timeSince_ > MILLISECONDS_PER_PARTICLE)
 		{
 			Random r = new Random();
-			while(!cPickers[cPicker = r.nextInt(cPickers.length)]);
-			while(!cRules[cRule = r.nextInt(cRules.length)]);
-			while(!sRules[sRule = r.nextInt(sRules.length)]);
-			while(!pRules[pRule = r.nextInt(pRules.length)]);
+			while(!cPickers[cPicker = r.nextInt(cPickers.length)])
+			{
+				;
+			}
+			while(!cRules[cRule = r.nextInt(cRules.length)])
+			{
+				;
+			}
+			while(!sRules[sRule = r.nextInt(sRules.length)])
+			{
+				;
+			}
+			while(!pRules[pRule = r.nextInt(pRules.length)])
+			{
+				;
+			}
 			float[] colors = RendererParticle.getCPicker(cPicker).pickColor();
 			particles_.addParticle(new ParticleParameters(x_, y_, r.nextDouble() * 2 * Math.PI, colors[0],
-					colors[1], colors[2], colors[3], 5, cRule, sRule,
+					colors[1], colors[2], colors[3], SIZE, cRule, sRule,
 					pRule, new ExtraProperties()));
 			timeSince_ -= MILLISECONDS_PER_PARTICLE;			
 		}

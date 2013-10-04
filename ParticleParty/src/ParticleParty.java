@@ -181,8 +181,8 @@ public class ParticleParty
 	private void initGens()
 	{
 		gens = new GeneratorParticle[MAX_PARTICLE_GENS];
-		addGen(new GeneratorCircle(width / 2, 0, CIRCLE_RADIUS, particles));
 		addGen(new GeneratorMouse(particles));
+		addGen(new GeneratorCircle(width / 2, 0, CIRCLE_RADIUS, particles));
 		addGen(new GeneratorFireworks(particles, burstParticles));
 		genNames = new String[MAX_PARTICLE_GENS];
 		for(int i = 0; i < MAX_PARTICLE_GENS; i++)
@@ -230,6 +230,10 @@ public class ParticleParty
 		}
 	}
 	
+	/**
+	 * Updates the sidebar, checks for changes in the options in the sidebar and applies them.
+	 * Then updates the update logic for the particle renderers.
+	 */
 	private void updateLogic()
 	{
 		Sidebar.update(delta);
@@ -248,9 +252,13 @@ public class ParticleParty
 		particles.update(delta);
 	}
 	
+	/**
+	 * Clears the buffers, renders the particles, the generator, then the sidebar
+	 */
 	private void render()
 	{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		renderBackground();
 		particles.render();
 		burstParticles.render();
 		gens[activeGen].render();
@@ -258,6 +266,21 @@ public class ParticleParty
 		Display.update();
 	}
 	
+	private void renderBackground()
+	{
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glColor3f(0.55f, 0.55f, 0.6f);
+		GL11.glVertex2d(0, 0);
+		GL11.glVertex2d(width, 0);
+		GL11.glColor3f(0.1f, 0.1f, 0.15f);
+		GL11.glVertex2d(width, height);
+		GL11.glVertex2d(0, height);
+		GL11.glEnd();
+	}
+	
+	/**
+	 * Initialize the OpenGL matrix + color handling
+	 */
 	private void initOpenGL()
 	{
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -269,6 +292,10 @@ public class ParticleParty
 		GL11.glDepthFunc(GL11.GL_NEVER);
 	}
 	
+	/**
+	 * @param p - a GeneratorParticle object to be added
+	 * @return The id assigned to the generator passed
+	 */
 	public int addGen(GeneratorParticle p)
 	{
 		for(int i = 0; i < MAX_PARTICLE_GENS; i++)
@@ -282,6 +309,10 @@ public class ParticleParty
 		return -1;
 	}
 	
+	/**
+	 * @return The time in ticks since getDelta() was last run.
+	 *  Undefined for the first time it's run.
+	 */
 	public int getDelta()
 	{
 	    long time = getTime();
@@ -291,16 +322,27 @@ public class ParticleParty
 	    return delta;
 	}
 	
+	/**
+	 * @return The system time in milliseconds
+	 */
 	public long getTime()
 	{
 	    return System.nanoTime() / 1000000;
 	}
 	
+	/**
+	 * Clears all particles currently on screen.
+	 */
 	public void clearActiveGen()
 	{
 		gens[activeGen].clear();
 	}
 	
+	/**
+	 * @param rules - A list of which rules are active
+	 * @return The list, modified so that if no rules were previously
+	 * active, at the very least, the default rule is now active.
+	 */
 	public boolean[] makeValid(boolean[] rules)
 	{
 		boolean someTrue = false;

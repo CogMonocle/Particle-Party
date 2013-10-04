@@ -1,3 +1,5 @@
+import org.lwjgl.opengl.GL11;
+
 
 
 public class Sidebar
@@ -39,6 +41,14 @@ public class Sidebar
 	public static void render()
 	{
 		elements_[curFrame_].render();
+		
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glColor4f(0.2f, 0.2f, 0.2f, 0.5f);
+		GL11.glVertex2d(Sidebar.xPos_, 0);
+		GL11.glVertex2d(Sidebar.windowWidth_, 0);
+		GL11.glVertex2d(Sidebar.windowWidth_, Sidebar.windowHeight_);
+		GL11.glVertex2d(Sidebar.xPos_, Sidebar.windowHeight_);
+		GL11.glEnd();
 	}
 	
 	public static int addFrame(String name)

@@ -1,7 +1,7 @@
 
 public class ColorRuleFadeOut implements RendererParticle.ColorRule
 {
-	public static final float FADE_RATE = 0.001f;
+	public static final float FADE_RATE = 0.0005f;
 	
 	@Override
 	public float[] getColor(float initR, float initG, float initB, float initA,

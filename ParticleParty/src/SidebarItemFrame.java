@@ -1,4 +1,3 @@
-import org.lwjgl.opengl.GL11;
 
 
 public class SidebarItemFrame
@@ -38,15 +37,7 @@ public class SidebarItemFrame
 	}
 	
 	public void render()
-	{
-		GL11.glBegin(GL11.GL_QUADS);
-		GL11.glColor3f(0.5f, 0.5f, 0.5f);
-		GL11.glVertex2d(Sidebar.xPos_, 0);
-		GL11.glVertex2d(Sidebar.windowWidth_, 0);
-		GL11.glVertex2d(Sidebar.windowWidth_, Sidebar.windowHeight_);
-		GL11.glVertex2d(Sidebar.xPos_, Sidebar.windowHeight_);
-		GL11.glEnd();
-		
+	{		
 		for(int i = 0; i < Sidebar.MAX_ELEMS; i ++)
 		{
 			if(elements[i] != null)
